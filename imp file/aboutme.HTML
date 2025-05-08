@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Subham Malla | Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f9ff;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(to right, #0055cc, #003f99);
+      color: white;
+      text-align: center;
+      padding: 2em 1em;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.2em;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2em auto;
+      padding: 2em;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .profile {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+
+    .profile img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #0055cc;
+      margin-bottom: 1em;
+    }
+
+    h2 {
+      color: #0055cc;
+      margin-bottom: 0.5em;
+    }
+
+    section {
+      margin-bottom: 2em;
+    }
+
+    .contact a {
+      color: #0055cc;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 0.3em;
+    }
+
+    .contact a:hover {
+      text-decoration: underline;
+    }
+
+    .btn {
+      background-color: #0055cc;
+      color: white;
+      padding: 0.6em 1.2em;
+      text-decoration: none;
+      border-radius: 6px;
+      display: inline-block;
+      margin-top: 1em;
+    }
+
+    .btn:hover {
+      background-color: #003f99;
+    }
+
+    .comment-box {
+      margin-top: 2em;
+    }
+
+    .comment-box input, .comment-box textarea {
+      width: 100%;
+      padding: 0.8em;
+      margin: 0.5em 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .comment {
+      background: #eef2fa;
+      padding: 1em;
+      border-radius: 6px;
+      margin-bottom: 0.5em;
+      position: relative;
+    }
+
+    .comment span {
+      font-weight: bold;
+      color: #0055cc;
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: transparent;
+      color: #999;
+      border: none;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5em;
+      font-size: 0.9em;
+      background: #eef2fa;
+      margin-top: 3em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Subham Malla</h1>
+    <p>Student at Grukul Bidya Sadan | Developer & Learner</p>
+  </header>
+
+  <div class="container">
+    <section class="profile">
+      <img src="https://graph.facebook.com/subham.malla.89909/picture?type=large" alt="Subham Malla Profile Picture">
+    </section>
+
+    <section class="about">
+      <h2>About Me</h2>
+      <p>Hello! I'm <strong>Subham Malla</strong>, from Tharpu, Tanahun. I’m a dedicated student at Grukul Bidya Sadan, passionate about web development and digital creativity. I enjoy building simple and functional websites using HTML and CSS.</p>
+    </section>
+
+    <section class="school">
+      <h2>About My School</h2>
+      <p>Grukul Bidya Sadan is a reputed institution known for academic excellence and overall student development. It provides a supportive environment for students to grow intellectually and personally, emphasizing both theoretical and practical learning.</p>
+    </section>
+
+    <section class="project">
+      <h2>My Projects</h2>
+      <p>This website showcases my school project: a simple school site designed using HTML and CSS. It focuses on layout, color schemes, and responsive design — giving a clean and modern look. I’ve also worked on other small web design tasks, focusing on UI improvements and interactive elements.</p>
+      <a class="btn" href="https://github.com/" target="_blank">View Code (GitHub)</a>
+    </section>
+
+    <section class="contact">
+      <h2>Contact Me</h2>
+      <p>Feel free to connect with me through the platforms below:</p>
+      <p><a href="https://mail.google.com/mail/u/0/#inbox?compose=lqrsljbBpSNvmtxpmJpvBWnPMXZxdvwFZdrwpzRGsslhcDKwnxZVmnWCsKXzrfJgBdSNVNwwQMlftxgdK">📧 subhammall01@gmail.com</a></p>
+      <p><a href="https://www.facebook.com/subham.malla.89909" target="_blank">🌐 Facebook Profile</a></p>
+      <p><a href="https://www.instagram.com/subhammalla_/" target="_blank">📸 Instagram</a></p>
+    </section>
+
+    <section class="comments">
+      <h2>Comments</h2>
+      <div class="comment-box">
+        <input type="text" id="username" placeholder="Your name" required />
+        <textarea id="commentText" placeholder="Write your comment here..." required></textarea>
+        <button class="btn" onclick="addComment()">Post Comment</button>
+      </div>
+      <div id="commentsList"></div>
+    </section>
+
+  </div>
+
+  <footer>
+    &copy; 2025 Subham Malla. All rights reserved.
+  </footer>
+
+  <script>
+    function loadComments() {
+      const comments = JSON.parse(localStorage.getItem("comments") || "[]");
+      const list = document.getElementById("commentsList");
+      list.innerHTML = "";
+      comments.forEach((c, i) => {
+        const comment = document.createElement("div");
+        comment.className = "comment";
+        comment.innerHTML = `<span>${c.name}</span>: ${c.text} <button class="delete-btn" onclick="deleteComment(${i})">×</button>`;
+        list.appendChild(comment);
+      });
+    }
+
+    function addComment() {
+      const name = document.getElementById("username").value.trim();
+      const text = document.getElementById("commentText").value.trim();
+      if (!name || !text) return alert("Please enter both name and comment.");
+      const comments = JSON.parse(localStorage.getItem("comments") || "[]");
+      comments.push({ name, text });
+      localStorage.setItem("comments", JSON.stringify(comments));
+      document.getElementById("username").value = "";
+      document.getElementById("commentText").value = "";
+      loadComments();
+    }
+
+    function deleteComment(index) {
+      const comments = JSON.parse(localStorage.getItem("comments") || "[]");
+      comments.splice(index, 1);
+      localStorage.setItem("comments", JSON.stringify(comments));
+      loadComments();
+    }
+
+    window.onload = loadComments;
+  </script>
+
+</body>
+</html>
