@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>English ⇄ Nepali Translator</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    textarea { width: 100%; height: 100px; margin-top: 10px; }
+    button { padding: 10px 20px; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <h2>English ⇄ Nepali Translator</h2>
+  
+  <label>Enter Text:</label>
+  <textarea id="inputText" placeholder="Type here..."></textarea>
+  
+  <div>
+    <button onclick="translate('en', 'ne')">English to Nepali</button>
+    <button onclick="translate('ne', 'en')">Nepali to English</button>
+  </div>
+  
+  <label>Translated Text:</label>
+  <textarea id="outputText" readonly></textarea>
+
+  <script>
+    async function translate(from, to) {
+      const text = document.getElementById("inputText").value;
+      const response = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`);
+      const result = await response.json();
+      document.getElementById("outputText").value = result[0].map(item => item[0]).join("");
+    }
+  </script>
+</body>
+</html>
